@@ -33,7 +33,15 @@ class Game():
             self.pits = init_condit
 
 
-    def player_move(self, pit: int) -> bool:
+    def make_move(self, pit: int) -> bool:
+        valid = self._check_valid_move(pit)
+
+        if valid:
+            ending_position = self._move_pieces(pit)
+            
+    
+
+    def _check_valid_move(self, pit: int) -> bool:
         # Check to make sure chosen pit was valid
         # A move is invalid if:
         #   pit is outside of the range
@@ -41,14 +49,13 @@ class Game():
         #   pit is on the opponents side
         #   pit is empty
         #
-        if ((0 <= pit <= 5 and current_turn == PLAYER_ONE) or
-            (7 <= pit <= 13 and current_turn == PLAYER_TWO)) and
-            (pits[pit] != 0):
+        if ((0 <= pit <= 5 and self.current_turn == PLAYER_ONE) or
+            (7 <= pit <= 13 and self.current_turn == PLAYER_TWO)) and
+            (self.pits[pit] != 0):
                 return True
         else:
             return False
 
-        
         
 
     def _move_pieces(self, pit: int) -> int:
@@ -82,5 +89,10 @@ class Game():
         return pit
             
 
+    def _attempt_steal(self, pit: int) -> None:
+        'Sees if it can steal opponents pieces, returns result'
+        # If there is only one in the pit, then it must have been empty before
+        if self.pits[pit] == 1:
+            
             
                     
