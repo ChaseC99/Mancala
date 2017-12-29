@@ -1,5 +1,6 @@
 # Mancala
-#   ui.py
+#   gui.py
 #
 # Created by Chase Carnaroli
 
+class 
