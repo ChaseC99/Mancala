@@ -33,19 +33,48 @@ class Game():
             self.pits = init_condit
 
 
+    def switch_turn(self):
+        'Switch the current turn to the other player'
+        if self.current_turn == PLAYER_ONE:
+            self.current_turn = PLAYER_TWO
+        else:
+            self.current_turn = PLAYER_ONE
+
+
     def check_game_over(self) -> bool:
         'Returns whether or not the game is over'
-        player_one_pits = self.pits[0:6]
-        player_two_pits = self.pits[7:14]
+        p_one_pits = self.pits[0:6]
+        p_two_pits = self.pits[7:14]
 
+        player_one_pits_empty = self._check_empty(p_one_pits)
+        player_two_pits_empty = self._check_empty(p_two_pits)
+
+        return player_one_pits_empty or player_two_pits_empty
+        
+
+    def _check_empty(self, pits: [int]) -> bool:
+        'Returns true if list is empty, false otherwise'
+        # Checks each item in the list
+        # If one is not 0, it returns False
+        for pit in pits:
+            if pit != 0:
+                return False
+
+        # If it made it through, then the list is empty
+        return True
+        
         
 
 
-    def make_move(self, pit: int) -> bool:
-        valid = self._check_valid_move(pit)
-
-        if valid:
-            ending_position = self._move_pieces(pit)
+    def make_move(self, pit: int) -> (bool, int):
+        'Returns true if move is over, false otherwise'
+        ending_pos = self._move_pieces(pit)
+        
+        if ending_pos == 6 or ending_pos == 14:
+            return (False, ending_pos)
+        else:
+            return (True, ending_pos)
+        
             
     
 
