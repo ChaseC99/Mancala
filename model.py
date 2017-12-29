@@ -25,12 +25,20 @@ class Game():
 
 
     
-    def __init__(self, avalanche_mode: bool, init_condit: [int] = None):
+    def __init__(self, avalanche_mode: bool = False, init_condit: [int] = None):
         self.avalanche = avalanche_mode
         self.current_turn = PlAYER_ONE
 
         if init_condit not None:
             self.pits = init_condit
+
+
+    def check_game_over(self) -> bool:
+        'Returns whether or not the game is over'
+        player_one_pits = self.pits[0:6]
+        player_two_pits = self.pits[7:14]
+
+        
 
 
     def make_move(self, pit: int) -> bool:
@@ -41,7 +49,7 @@ class Game():
             
     
 
-    def _check_valid_move(self, pit: int) -> bool:
+    def check_valid_move(self, pit: int) -> bool:
         # Check to make sure chosen pit was valid
         # A move is invalid if:
         #   pit is outside of the range
