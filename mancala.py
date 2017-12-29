@@ -2,14 +2,14 @@
 #   mancala.py
 #
 # Created by Chase Carnaroli
-import ui
+import gui
 import model
 
 def start_game() -> None:
     'Main code that runs the game'
 
     # Create UI
-    ui = ui.console_ui()
+    ui = gui.Console_UI()
 
     # Deal with avalanche mode later
 
