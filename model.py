@@ -11,8 +11,8 @@ class Game():
     #
     #   0 - 5           PLAYER 1's PITS
     #   6               PLAYER 1's STORE
-    #   7 - 13          PLAYER 2's PITS
-    #   14              PLAYER 2's STORE
+    #   7 - 12          PLAYER 2's PITS
+    #   13              PLAYER 2's STORE
     
     pits = [4] * 6 + [0] + [4] * 6 + [0]
 
@@ -70,7 +70,7 @@ class Game():
         'Returns true if move is over, false otherwise'
         ending_pos = self._move_pieces(pit)
         
-        if ending_pos == 6 or ending_pos == 14:
+        if ending_pos == 6 or ending_pos == 13:
             return (False, ending_pos)
         else:
             return (True, ending_pos)
@@ -87,7 +87,7 @@ class Game():
         #   pit is empty
         #
         if ((0 <= pit <= 5 and self.current_turn == PLAYER_ONE) or
-            (7 <= pit <= 13 and self.current_turn == PLAYER_TWO)) and
+            (7 <= pit <= 12 and self.current_turn == PLAYER_TWO)) and
             (self.pits[pit] != 0):
                 return True
         else:
@@ -109,12 +109,12 @@ class Game():
             pit += 1
 
             # Check to make sure pit does not go out of bounds
-            if pit > 14:
+            if pit > 13:
                 pit = 0
 
             # Check to make sure pit is not opponent's store
             if (pit == 6 and self.current_turn == PLAYER_TWO) or
-                (pit == 14 and self.current_turn == PLAYER_ONE):
+                (pit == 13 and self.current_turn == PLAYER_ONE):
                     continue
             else:
                 # Drop one of the pieces into that pit
