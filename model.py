@@ -38,6 +38,33 @@ class Game():
             self.current_turn = self.PLAYER_ONE
 
 
+    def get_winner(self) -> (str):
+        'Determines winner and returns winner'
+        if self.pits[6] > self.pits[13]:
+            return self.PLAYER_ONE
+        elif self.pits[6] < self.pits[13]:
+            return self.PLAYER_TWO
+        else:
+            return 3
+
+
+    def clear_remaining_pieces(self) -> [int]:
+        'Clear remains pieces to the right store and return the pits'
+        # First row
+        for pit in range(0,6):
+            if self.pits[pit] > 0:
+                self.pits[6] += self.pits[pit]
+                self.pits[pit] = 0
+
+        # Second row
+        for pit in range(7,13):
+            if self.pits[pit] > 0:
+                self.pits[13] += self.pits[pit]
+                self.pits[pit] = 0
+
+        return self.pits
+    
+
     def check_game_over(self) -> bool:
         'Returns whether or not the game is over'
         p_one_pits = self.pits[0:6]
@@ -123,12 +150,29 @@ class Game():
         return pit
             
 
-    def attempt_steal(self, pit: int) -> None:
+    def attempt_steal(self, pit: int) -> bool:
         'Sees if it can steal opponents pieces, returns result'
         # If there is only one in the pit, then it must have been empty before
-        if self.pits[pit] == 1:
+        if pit == 6 or pit == 13:
             return False
-
-        return False
+        elif (self.current_turn == PLAYER_ONE and pit > 6) or (self.current_turn == PLAYER_TWO and pit < 6):
+            return False
+        elif self.pits[pit] == 1:
+            return True
+        else:
+            return False
             
                     
+
+    def steal(self, pit: int) -> None:
+        'Steals the pieces from an opponents pit and puts them in own store'
+        diff = 6 - pit
+        pit_to_steal = 6 + diff
+
+        if pit > 6:
+            self.pits[13] += self.pits[pit_to_steal]
+        elif pit < 6:
+            self.pits[6] += self.pits[pit_to_steal]
+
+        self.pits[pit_to_steal] = 0
+            
