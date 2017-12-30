@@ -7,7 +7,7 @@ class Console_UI():
     def get_move(self) -> int:
         try:
             return int(input('Enter pit: '))
-        except:
+        except ValueError:
             return self.get_move()
 
 
@@ -24,3 +24,6 @@ class Console_UI():
         print('  ', end='')
         for pit in pits[:6]:
             print(pit, end=' ')
+
+        print()
+        print()
