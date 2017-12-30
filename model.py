@@ -155,7 +155,7 @@ class Game():
         # If there is only one in the pit, then it must have been empty before
         if pit == 6 or pit == 13:
             return False
-        elif (self.current_turn == PLAYER_ONE and pit > 6) or (self.current_turn == PLAYER_TWO and pit < 6):
+        elif (self.current_turn == self.PLAYER_ONE and pit > 6) or (self.current_turn == self.PLAYER_TWO and pit < 6):
             return False
         elif self.pits[pit] == 1:
             return True
