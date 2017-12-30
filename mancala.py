@@ -43,6 +43,9 @@ def start_game() -> None:
             if steal_success:
                 game.steal(ending_pos)
                 ui.steal(ending_pos)
+                
+                # Del later
+                ui.update(game.pits)
         
             # See if game is over
             game_over = game.check_game_over()
