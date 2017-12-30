@@ -27,3 +27,20 @@ class Console_UI():
 
         print()
         print()
+
+
+    def clear_remaining_pieces(self, final_board: [int]):
+        print('Final Score')
+        print('    Player 1: ', final_board[6])
+        print('    Player 2: ', final_board[13])
+
+
+    def game_over(self, winner: int):
+        'Prints game over message'
+        print('Game Over!')
+        print(winner, ' is the winner')
+
+
+    def steal(self, ending_pos: int):
+        'Prints steal'
+        print('Stolen pieces from across of ', ending_pos)
