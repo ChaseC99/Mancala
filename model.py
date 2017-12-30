@@ -4,47 +4,44 @@
 # Created by Chase Carnaroli
 
 class Game():
-
-    # pits represents the number of marbles in each spot on the board
-    #
-    # By default, each pit starts with 4 pieces and the store starts with 0
-    #
-    #   0 - 5           PLAYER 1's PITS
-    #   6               PLAYER 1's STORE
-    #   7 - 12          PLAYER 2's PITS
-    #   13              PLAYER 2's STORE
-    
-    pits = [4] * 6 + [0] + [4] * 6 + [0]
-
-
-
-    # The players in the game are represented by numbers
-    
-    PLAYER_ONE = 1
-    PLAYER_TWO = 2
-
-
     
     def __init__(self, avalanche_mode: bool = False, init_condit: [int] = None):
         self.avalanche = avalanche_mode
-        self.current_turn = PlAYER_ONE
 
-        if init_condit not None:
+        # The players in the game are represented by numbers
+    
+        self.PLAYER_ONE = 1
+        self.PLAYER_TWO = 2
+        
+        self.current_turn = self.PLAYER_TWO
+
+        if init_condit != None:
             self.pits = init_condit
+        else:
+            # pits represents the number of marbles in each spot on the board
+            #
+            # By default, each pit starts with 4 pieces and the store starts with 0
+            #
+            #   0 - 5           PLAYER 1's PITS
+            #   6               PLAYER 1's STORE
+            #   7 - 12          PLAYER 2's PITS
+            #   13              PLAYER 2's STORE
+    
+            self.pits = [4] * 6 + [0] + [4] * 6 + [0] 
 
 
     def switch_turn(self):
         'Switch the current turn to the other player'
-        if self.current_turn == PLAYER_ONE:
-            self.current_turn = PLAYER_TWO
+        if self.current_turn == self.PLAYER_ONE:
+            self.current_turn = self.PLAYER_TWO
         else:
-            self.current_turn = PLAYER_ONE
+            self.current_turn = self.PLAYER_ONE
 
 
     def check_game_over(self) -> bool:
         'Returns whether or not the game is over'
         p_one_pits = self.pits[0:6]
-        p_two_pits = self.pits[7:14]
+        p_two_pits = self.pits[7:13]
 
         player_one_pits_empty = self._check_empty(p_one_pits)
         player_two_pits_empty = self._check_empty(p_two_pits)
@@ -86,9 +83,9 @@ class Game():
         #   pit is on the opponents side
         #   pit is empty
         #
-        if ((0 <= pit <= 5 and self.current_turn == PLAYER_ONE) or
-            (7 <= pit <= 12 and self.current_turn == PLAYER_TWO)) and
-            (self.pits[pit] != 0):
+        if (((0 <= pit <= 5 and self.current_turn == self.PLAYER_ONE)
+             or (7 <= pit <= 12 and self.current_turn == self.PLAYER_TWO))
+            and (self.pits[pit] != 0)):
                 return True
         else:
             return False
@@ -113,8 +110,8 @@ class Game():
                 pit = 0
 
             # Check to make sure pit is not opponent's store
-            if (pit == 6 and self.current_turn == PLAYER_TWO) or
-                (pit == 13 and self.current_turn == PLAYER_ONE):
+            if ((pit == 6 and self.current_turn == self.PLAYER_TWO) or
+                (pit == 13 and self.current_turn == self.PLAYER_ONE)):
                     continue
             else:
                 # Drop one of the pieces into that pit
@@ -126,10 +123,12 @@ class Game():
         return pit
             
 
-    def _attempt_steal(self, pit: int) -> None:
+    def attempt_steal(self, pit: int) -> None:
         'Sees if it can steal opponents pieces, returns result'
         # If there is only one in the pit, then it must have been empty before
         if self.pits[pit] == 1:
-            
+            return False
+
+        return False
             
                     
