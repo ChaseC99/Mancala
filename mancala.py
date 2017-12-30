@@ -20,7 +20,7 @@ def start_game() -> None:
 
     while not game_over:
         # Switch turn
-        game.switch_turns() 
+        game.switch_turn() 
         
         # Preform Move
         move_over = False
@@ -41,12 +41,22 @@ def start_game() -> None:
             steal_success = game.attempt_steal(ending_pos)
 
             if steal_success:
+                game.steal(ending_pos)
                 ui.steal(ending_pos)
         
-         # See if game is over
-         game_over = game.check_game_over()
+            # See if game is over
+            game_over = game.check_game_over()
 
-    print("Game Over")
+            # If the game is over, break the move loop
+            if game_over:
+                move_over = True
+
+
+    final_board = game.clear_remaining_pieces()
+    ui.clear_remaining_pieces(final_board)
+    
+    winner = game.get_winner()
+    ui.game_over(winner)
         
         
 
